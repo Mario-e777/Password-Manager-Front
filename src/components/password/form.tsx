@@ -1,27 +1,50 @@
-import React, { useRef } from 'react'
+/* React & Gatsby stuff */
+import React, { useRef, useState } from 'react';
 
-import Input from '../input'
+/* Modules */
+import styled from 'styled-components';
+
+/* Components */
+import Input from '../input';
 
 /* Form Actions */
-import Generate from './functions/generate'
-import Save from './functions/save'
+import Generate from './functions/generate';
+import Save from './functions/save';
+
+const FormContainer = styled.section`
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  & form {
+    display: flex;
+    flex-direction: column;
+    max-width: 480;
+    gap: 1rem;
+  }
+`;
 
 export default function form() {
-  const SITE_REF = useRef(null)
-  const PASSWORD_REF = useRef(null)
+  const SITE_REF = useRef(null);
+  const PASSWORD_REF = useRef(null);
+  const [saveFunction, setSaveFunction] = useState<any>();
 
   return (
-    <form style={{ display: 'flex', flexDirection: 'column', maxWidth: 480, gap: '1rem' }} >
-      <label>
-        <p style={{ margin: 0 }} >Site</p>
-        <Input ref={SITE_REF} type={'text'} />
-      </label>
-      <label>
-        <p style={{ margin: 0 }} >Pass</p>
-        <Input ref={PASSWORD_REF} type={'text'} />
-      </label>
-      <Generate inputRef={PASSWORD_REF} />
-      <Save siteInput={SITE_REF} passInput={PASSWORD_REF} />
-    </form>
-  )
-}
+    <FormContainer>
+      <form onSubmit={(e) => { e.preventDefault(); saveFunction.mutate()}}>
+        <label>
+          <p style={{ margin: 0 }} >Site</p>
+          <Input ref={SITE_REF} type={'text'} required />
+        </label>
+        <label>
+          <p style={{ margin: 0 }} >Pass</p>
+          <Input ref={PASSWORD_REF} type={'text'} required />
+        </label>
+        <Generate inputRef={PASSWORD_REF} />
+        <Save setSaveFunction={setSaveFunction} siteInput={SITE_REF} passInput={PASSWORD_REF} />
+      </form>
+    </FormContainer>
+  );
+};

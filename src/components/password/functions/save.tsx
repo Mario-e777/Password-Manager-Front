@@ -1,11 +1,22 @@
-import React from 'react'
-import { useMutation } from 'react-query'
+/* React & Gatsby stuff */
+import React, { useEffect, useContext } from 'react';
+import { useMutation } from 'react-query';
 
-import Button from '../../button'
+/* Components */
+import Button from '../../button';
+import NotificationSender from '../../notifications/sender';
 
-import { saveNewPassword } from '../../../utils/endpoints'
+/* Contexts */
+import { LayoutContext } from '../../layout';
 
-export default function save(props) {
-  const saveNewPasswordMutation = useMutation(() => saveNewPassword(props))
-  return <Button onClick={() => saveNewPasswordMutation.mutate()} type="button" text='🔒 Save Password 🔒' />
-}
+/* Utils */
+import { saveNewPassword } from '../../../utils/endpoints';
+
+export default function save(props: any) {
+  const saveNewPasswordMutation = useMutation(() => saveNewPassword(props));
+  const SnackSender = new NotificationSender('snack', useContext(LayoutContext));
+  useEffect(() => {
+    (saveNewPasswordMutation.isSuccess || saveNewPasswordMutation.isError) && SnackSender.send(saveNewPasswordMutation);
+  }, [saveNewPasswordMutation.isSuccess, saveNewPasswordMutation.isError]);
+  return <Button onClick={() => props.setSaveFunction(saveNewPasswordMutation)} type="submit" text='🔒 Save Password 🔒' />
+};

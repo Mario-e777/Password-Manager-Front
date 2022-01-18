@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 const Button = styled.button`
   border-radius: 5px;
@@ -16,4 +16,4 @@ const Button = styled.button`
 
 export default function button(props: any) {
   return <Button {...props} >{props.text}</Button>
-}
+};
