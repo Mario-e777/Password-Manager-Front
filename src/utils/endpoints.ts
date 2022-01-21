@@ -1,11 +1,8 @@
-export function saveNewPassword({ siteInput, passInput }) {
+export function saveNewPassword({ site, pass }) {
   return new Promise((resolve, reject) => {
     fetch('http://localhost:9000/pass/save', {
       method: 'POST',
-      body: JSON.stringify({
-        site: siteInput.current.value,
-        pass: passInput.current.value
-      }),
+      body: JSON.stringify({ site, pass }),
       headers:{
         'Content-Type': 'application/json',
       }

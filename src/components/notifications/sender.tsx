@@ -4,15 +4,15 @@ import FloatingSnackBar from "./snack-bars/floating";
 
 export default class Sender {
   type: string;
-  functions: any;
+  layoutFunctions: any;
 
-  constructor(type: string, functions: any) {
+  constructor(type: string, layoutFunctions: any) {
     this.type = type
-    this.functions = functions
+    this.layoutFunctions = layoutFunctions
   };
 
   send({ isSuccess, isError }) {
-    this.functions.handleNatification(
+    this.layoutFunctions.handleNatification(
       <FloatingSnackBar
         key={Math.floor(Math.random() * 999999)}
         duration={3333}

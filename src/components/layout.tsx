@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import { QueryClient, QueryClientProvider } from 'react-query';
 
-import Header from "./header";
+/* import Header from "./header"; */
 import "./layout.css";
 
 const queryClient = new QueryClient();
@@ -20,7 +20,7 @@ const Layout = ({ children }) => {
     <QueryClientProvider client={queryClient}>
       <LayoutContext.Provider value={{ handleNatification }}>
         {notification}
-        <div style={{ backgroundImage: 'linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%)' }} >
+        <div className="page-background" >
           {/* <Header /> */}
           <main>{children}</main>
           {/* <footer></footer> */}

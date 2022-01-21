@@ -8,8 +8,8 @@ import styled from 'styled-components';
 import Input from '../input';
 
 /* Form Actions */
-import Generate from './functions/generate';
-import Save from './functions/save';
+import GeneratePassword from './functions/generate';
+import SavePassword from './functions/save';
 
 const FormContainer = styled.section`
   width: 100vw;
@@ -29,11 +29,11 @@ const FormContainer = styled.section`
 export default function form() {
   const SITE_REF = useRef(null);
   const PASSWORD_REF = useRef(null);
-  const [saveFunction, setSaveFunction] = useState<any>();
+  const [formFunction, setFormFunction] = useState<any>();
 
   return (
     <FormContainer>
-      <form onSubmit={(e) => { e.preventDefault(); saveFunction.mutate()}}>
+      <form onSubmit={(e) => { e.preventDefault(); formFunction.mutate() }}>
         <label>
           <p style={{ margin: 0 }} >Site</p>
           <Input ref={SITE_REF} type={'text'} required />
@@ -42,8 +42,8 @@ export default function form() {
           <p style={{ margin: 0 }} >Pass</p>
           <Input ref={PASSWORD_REF} type={'text'} required />
         </label>
-        <Generate inputRef={PASSWORD_REF} />
-        <Save setSaveFunction={setSaveFunction} siteInput={SITE_REF} passInput={PASSWORD_REF} />
+        <GeneratePassword inputRef={PASSWORD_REF} />
+        <SavePassword setSaveFunction={setFormFunction} site={SITE_REF.current?.value} pass={PASSWORD_REF.current?.value} />
       </form>
     </FormContainer>
   );
